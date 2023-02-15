@@ -38,10 +38,13 @@ public class Game {
     //private final boolean key_shoot;
     private Bullet bala;
     private Wall walls[];
+
+    /*
     private Wall w1;
     private Wall w2;
     private Wall w3;
     private Wall w4;
+     */
     public Game() {
         //this.key_left_pressed = false;
         //this.key_right_pressed = false;
@@ -57,13 +60,15 @@ public class Game {
         }
         ship = new Ship(20, 20);
         bala = new Bullet(24, 19);
-        
+
+        /*
         w1= new Wall(65,15);
         w2= new Wall(45,15);
         w3= new Wall(25,15);
         w4= new Wall(5,15);
+         */
     }
-    
+
     public void loop() throws InterruptedException {
 
         try {
@@ -79,7 +84,6 @@ public class Game {
                 paint(this.screen);
 
                 //se procesa la entrada
-                
                 Thread.sleep((1 / 60) * 1000);
 
             }
@@ -90,8 +94,10 @@ public class Game {
         }
 
     }
-    private void update(){
+
+    private void update() {
         this.ship.movebullets();
+        this.ship.moveHorizontal(ROWS, ROWS, ROWS);
     }
 
     private void process_input() throws IOException {
@@ -108,13 +114,28 @@ public class Game {
                 this.exit_key = true;
             }
             if (keyStroke.getKeyType() == KeyType.ArrowUp) {
-                //this.bala.moveVertical(-1,0,24);
+                this.bala.moveVertical(-1, 0, 24);
             }
-            if (keyStroke.getKeyType() == KeyType.ArrowUp) {
-                //this.bala.moveVertical(-1,0,24);
+            /*if (keyStroke.getKeyType() == KeyType.ArrowUp) {
+                this.bala.moveVertical(-1, 0, 24);
+            }*/
+            if (keyStroke.getKeyType() == KeyType.ArrowLeft) {
+                this.ship.moveHorizontal(-1, 0, COLUMNS - 1);
             }
+            if (keyStroke.getKeyType() == KeyType.ArrowRight) {
+                this.ship.moveHorizontal(1, 0, COLUMNS - 1);
+            }
+//se mueven las balas
+            //this.ship.moveBullets(0, ROWS);
+//se dispara si se ha pulsado la tecla
+            /*if (this.key_shoot) {
+                this.ship.shoot();
+            }*/
         }
     }
+    
+
+    
 
     private void paint(Screen s) {
         try {
@@ -129,11 +150,12 @@ public class Game {
             }
             this.bala.paint(s);
             this.ship.paint(s);
-            
+            /*
             this.w1.Paint(s);
             this.w2.Paint(s);
             this.w3.Paint(s);
             this.w4.Paint(s);
+             */
             screen.refresh();
         } catch (IOException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
@@ -141,17 +163,6 @@ public class Game {
     }
 
     /*private void update() {
-        if (this.key_left_pressed) {
-            this.ship.moveHorizontal(-1, 0, COLUMNS - 1);
-        }
-        if (this.key_right_pressed) {
-            this.ship.moveHorizontal(1, 0, COLUMNS - 1);
-        }
-//se mueven las balas
-        this.ship.moveBullets(0, ROWS);
-//se dispara si se ha pulsado la tecla
-        if (this.key_shoot) {
-            this.ship.shoot();
-        }
+        this.createWalls();
     }*/
 }

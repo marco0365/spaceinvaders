@@ -73,7 +73,9 @@ public class Ship {
     public void moveHorizontal(int incx, int min_x, int max_x) {
         if (this.getPosition().getX() + incx - this.getWidth() / 2 >= min_x
                 && this.getPosition().getX() + incx + this.getWidth() / 2 < max_x) {
+            
             this.getPosition().addX(incx);
+            
         } else {
             Toolkit.getDefaultToolkit().beep();
         }
